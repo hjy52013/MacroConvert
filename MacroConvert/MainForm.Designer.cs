@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.memoEditInput = new DevExpress.XtraEditors.MemoEdit();
             this.memoEditOutput = new DevExpress.XtraEditors.MemoEdit();
             this.simpleButtonComfirm = new DevExpress.XtraEditors.SimpleButton();
@@ -77,8 +78,9 @@
             this.Controls.Add(this.simpleButtonComfirm);
             this.Controls.Add(this.memoEditOutput);
             this.Controls.Add(this.memoEditInput);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "MacroConvert";
             ((System.ComponentModel.ISupportInitialize)(this.memoEditInput.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.memoEditOutput.Properties)).EndInit();
             this.ResumeLayout(false);

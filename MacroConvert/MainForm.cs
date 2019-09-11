@@ -12,6 +12,7 @@ namespace MacroConvert
     public partial class MainForm : DevExpress.XtraEditors.XtraForm
     {
         Dictionary<string, string> name = new Dictionary<string, string>();
+        bool haveMarks = false;
         public MainForm()
         {
             InitializeComponent();
@@ -32,7 +33,10 @@ namespace MacroConvert
                 {
                     try
                     {
-                        result = result.Replace(key, name[key]);
+                        if (haveMarks)
+                            result = result.Replace(key, name[key]);
+                        else
+                            result = result.Replace(key, "\"" + name[key] + "\"");
                     } catch (KeyNotFoundException)
                     {
                         outputs[i] = result;
@@ -47,11 +51,18 @@ namespace MacroConvert
 
         private string GetKey(string target)
         {
+            bool flag = false;
+            if (target[target.Length - 1].Equals('>'))
+                flag = true;
             string temp = null;
             int start = -1;
             int end = -1;
             for (int i = 0; i < target.Length; i++)
             {
+                if (target[i].Equals('\"'))
+                {
+                    haveMarks = true;
+                }
                 if (IsChineseCharater(target[i]))
                 {
                     start = i;
@@ -89,7 +100,10 @@ namespace MacroConvert
                     }
 
                 }
-                temp = target.Substring(start, end - start + 1);
+                if (flag)
+                    temp = target.Substring(start, end - start + 1);
+                else
+                    temp = target.Substring(start, target.Length - start);
             }
 
             return temp;
